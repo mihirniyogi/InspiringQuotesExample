@@ -19,7 +19,7 @@ platform :android do
 
     # Lane for Firebase
     desc "Upload to Firebase App Distribution"
-    lane :release do {
+    lane :release do
         firebase_app_distribution(
             service_credentials_file: "service-account.json",
             app: ENV["FIREBASE_APP_ID"],
@@ -27,6 +27,5 @@ platform :android do
             testers: "mihirniyogi942@gmail.com",
             release_notes: "Can now fetch random quotes!"
         )
-    }
-
+    end
 end
