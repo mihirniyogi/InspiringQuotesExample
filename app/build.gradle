@@ -15,6 +15,18 @@ android {
     namespace 'com.mihirniyogi.inspiringquotesexample'
     compileSdk 35
 
+    signingConfigs {
+        config {
+            def storePath = System.getenv("KEYSTORE_PATH")
+            if (storePath != null) {
+                storeFile file(storePath)
+                storePassword System.getenv("KEYSTORE_PASSWORD")
+                keyAlias System.getenv("KEY_ALIAS")
+                keyPassword System.getenv("KEY_PASSWORD")
+            }
+        }
+    }
+
     defaultConfig {
         applicationId "com.mihirniyogi.inspiringquotesexample"
         minSdk 24
@@ -36,6 +48,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     compileOptions {
