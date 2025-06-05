@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "510866549668",
+    "project_id": "inspiringquotesexample",
+    "storage_bucket": "inspiringquotesexample.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510866549668:android:2b162fa4505b1ec0d02f31",
+        "android_client_info": {
+          "package_name": "com.mihirniyogi.inspiringquotesexample"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWhM3VVi2Y22gXqI6sAYNmL25FVz2vV-U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
