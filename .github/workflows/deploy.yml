@@ -26,6 +26,7 @@ jobs:
           echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
           echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
           echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
+          echo "FIREBASE_APP_ID=${{  secrets.FIREBASE_APP_ID }}" >> $GITHUB_ENV
 
       # 4. Setup jdk
       - name: Setup JDK
@@ -38,9 +39,27 @@ jobs:
       - name: Build Signed APK
         run: ./gradlew clean assembleRelease
 
-      # 6. Upload Artifact
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+######     Optional     #####
+#      - name: Upload Artifact
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: release
+#          path: app/build/outputs/apk/release/app-release.apk
+
+      # 6. Decode Firebase Credentials
+      - name: Decode Firebase Credentials
+        run: echo "${{ secrets.FIREBASE_CREDENTIALS_BASE64 }}" | base64 -d > service-account.json # used by fastlane
+
+      # 7. Setup Ruby
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          name: release
-          path: app/build/outputs/apk/release/app-release.apk
+          ruby-version: '3.3'
+
+      # 8. Install Ruby Dependencies
+      - name: Install Ruby Dependencies
+        run: bundle install
+
+      # 9. Upload to Firebase via Fastlane
+      - name: Fastlane
+        run: bundle exec fastlane release
