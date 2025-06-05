@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         authorTextView = findViewById(R.id.authorTextView);
         fetchQuoteButton = findViewById(R.id.fetchQuoteButton);
         fetchQuoteButton.setOnClickListener(v -> fetchQuote());
+        distribution = FirebaseAppDistribution.getInstance();
     }
 
     private boolean isNotifPermissionGranted() {
