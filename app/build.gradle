@@ -2,6 +2,15 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+def getEnvVariable(String key) {
+    def props = new Properties()
+    def envFile = rootProject.file(".env")
+    if (envFile.exists()) {
+        props.load(new FileInputStream(envFile))
+    }
+    return props.getProperty(key) ?: ""
+}
+
 android {
     namespace 'com.mihirniyogi.inspiringquotesexample'
     compileSdk 35
@@ -13,7 +22,14 @@ android {
         versionCode 1
         versionName "1.0"
 
+        // incredibly unsafe - for demo purpose only - do NOT do this in a production environment
+        buildConfigField "String", "QUOTE_API_KEY", "\"${getEnvVariable('QUOTE_API_KEY')}\""
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        buildConfig true
     }
 
     buildTypes {
@@ -29,11 +45,12 @@ android {
 }
 
 dependencies {
-
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity
     implementation libs.constraintlayout
+    implementation libs.okhttp
+
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
