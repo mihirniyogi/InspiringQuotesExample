@@ -25,7 +25,7 @@ platform :android do
             app: ENV["FIREBASE_APP_ID"],
             apk_path: "app/build/outputs/apk/release/app-release.apk",
             testers: "mihirniyogi942@gmail.com",
-            release_notes: "Hopefully 400 error is fixed..."
+            release_notes: "Updated app title"
         )
     end
 end
